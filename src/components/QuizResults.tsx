@@ -44,7 +44,7 @@ export default function QuizResults({
   };
 
   return (
-    <div className="max-w-2xl w-full bg-white rounded-lg shadow-md p-6">
+    <div className="max-w-2xl w-full bg-black text-white rounded-lg shadow-md p-6">
       <div className="flex items-center justify-center mb-6">
         <Trophy className="w-12 h-12 text-yellow-500" />
       </div>
@@ -55,7 +55,7 @@ export default function QuizResults({
 
       <div className="text-center mb-8">
         <p className="text-4xl font-bold text-indigo-600">{percentage}%</p>
-        <p className="text-gray-600">
+        <p className="text-gray-400">
           You got {score} out of {questions.length} questions correct
         </p>
       </div>
@@ -65,7 +65,7 @@ export default function QuizResults({
           <div
             key={idx}
             className={`p-4 rounded-lg ${
-              q.correctAnswer === userAnswers[idx] ? 'bg-green-50' : 'bg-red-50'
+              q.correctAnswer === userAnswers[idx] ? 'bg-green-700' : 'bg-red-700'
             }`}
           >
             <p className="font-medium mb-2">{q.question}</p>
@@ -74,25 +74,23 @@ export default function QuizResults({
             </p>
 
             <div className="flex justify-between items-center mt-4">
-              {/* Show Answer Button (Aligned to the left) */}
               <button
                 onClick={() => toggleAnswer(idx)}
                 className={`inline-flex items-center gap-2 py-2 px-4 text-sm font-semibold rounded-md border focus:outline-none focus:ring-2 transition-colors duration-300 ${
                   showAnswers[idx]
-                    ? 'text-gray-700 bg-gray-200 border-gray-300 hover:bg-gray-300 focus:ring-gray-400'
-                    : 'text-indigo-700 bg-indigo-100 border-indigo-300 hover:bg-indigo-200 focus:ring-indigo-500'
+                    ? 'text-gray-700 bg-gray-300 border-gray-400 hover:bg-gray-400 focus:ring-gray-500'
+                    : 'text-indigo-700 bg-indigo-200 border-indigo-400 hover:bg-indigo-300 focus:ring-indigo-500'
                 }`}
               >
                 {showAnswers[idx] ? 'Hide Answer' : 'Show Answer'}
               </button>
 
-              {/* Show Explanation Button (Aligned to the right) */}
               <button
                 onClick={() => toggleExplanation(idx)}
                 className={`inline-flex items-center gap-2 py-2 px-4 text-sm font-semibold rounded-md border focus:outline-none focus:ring-2 transition-colors duration-300 ${
                   showExplanations[idx]
-                    ? 'text-gray-700 bg-gray-200 border-gray-300 hover:bg-gray-300 focus:ring-gray-400'
-                    : 'text-blue-700 bg-blue-100 border-blue-300 hover:bg-blue-200 focus:ring-blue-500'
+                    ? 'text-gray-700 bg-gray-300 border-gray-400 hover:bg-gray-400 focus:ring-gray-500'
+                    : 'text-blue-700 bg-blue-200 border-blue-400 hover:bg-blue-300 focus:ring-blue-500'
                 }`}
               >
                 {showExplanations[idx] ? 'Hide Explanation' : 'Show Explanation'}
@@ -106,7 +104,7 @@ export default function QuizResults({
             )}
 
             {showExplanations[idx] && q.explanation && (
-              <p className="text-sm text-gray-600 mt-2">{q.explanation}</p>
+              <p className="text-sm text-white-400 mt-2">{q.explanation}</p>
             )}
           </div>
         ))}

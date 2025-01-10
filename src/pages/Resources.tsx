@@ -31,17 +31,16 @@ export default function Resources() {
   }, []);
 
   useEffect(() => {
-    // Generate thumbnails for PDFs that don't have custom thumbnails
     resources.forEach(async (resource) => {
       if (!resource.thumbnail_url && !thumbnails[resource.id]) {
         try {
           const thumbnail = await generatePdfThumbnail(resource.file_url);
-          setThumbnails(prev => ({
+          setThumbnails((prev) => ({
             ...prev,
-            [resource.id]: thumbnail
+            [resource.id]: thumbnail,
           }));
         } catch (error) {
-          console.error('Error generating thumbnail:', error);
+          console.error("Error generating thumbnail:", error);
         }
       }
     });
@@ -135,11 +134,11 @@ export default function Resources() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading resources...</p>
+            <p className="mt-4 text-gray-300">Loading resources...</p>
           </div>
         </div>
       </div>
@@ -147,12 +146,12 @@ export default function Resources() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-black text-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <Book className="mx-auto h-12 w-12 text-indigo-600" />
-          <h2 className="mt-2 text-3xl font-bold text-gray-900">Resources</h2>
-          <p className="mt-2 text-lg text-gray-600">
+          <h2 className="mt-2 text-3xl font-bold text-white">Resources</h2>
+          <p className="mt-2 text-lg text-gray-300">
             Share and access learning materials
           </p>
         </div>
@@ -168,9 +167,9 @@ export default function Resources() {
             </button>
           </div>
         ) : (
-          <div className="max-w-2xl mx-auto mb-12 bg-white rounded-lg shadow-md p-6">
+          <div className="max-w-2xl mx-auto mb-12 bg-gray-800 rounded-lg shadow-md p-6">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-medium">Upload New Resource</h3>
+              <h3 className="text-lg font-medium text-white">Upload New Resource</h3>
               <button
                 onClick={() => setShowForm(false)}
                 className="text-gray-500 hover:text-gray-700"
@@ -180,7 +179,7 @@ export default function Resources() {
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-white">
                   Name
                 </label>
                 <input
@@ -190,11 +189,11 @@ export default function Resources() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-white">
                   Description
                 </label>
                 <textarea
@@ -204,11 +203,11 @@ export default function Resources() {
                     setFormData({ ...formData, description: e.target.value })
                   }
                   rows={3}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                  className="mt-1 block w-full rounded-md border-gray-700 bg-gray-800 text-white focus:border-indigo-500 focus:ring-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-white">
                   PDF File
                 </label>
                 <input
@@ -220,7 +219,7 @@ export default function Resources() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-white">
                   Thumbnail (optional)
                 </label>
                 <input
@@ -245,7 +244,7 @@ export default function Resources() {
           {resources.map((resource) => (
             <div
               key={resource.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+              className="bg-gray-800 rounded-lg shadow-md overflow-hidden"
             >
               <div className="aspect-w-16 aspect-h-9">
                 {resource.thumbnail_url ? (
@@ -261,7 +260,7 @@ export default function Resources() {
                     className="w-full h-48 object-cover"
                   />
                 ) : (
-                  <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+                  <div className="w-full h-48 bg-gray-600 flex items-center justify-center">
                     <div className="animate-pulse">
                       <Book className="h-12 w-12 text-gray-400" />
                     </div>
@@ -269,10 +268,10 @@ export default function Resources() {
                 )}
               </div>
               <div className="p-4">
-                <h3 className="text-lg font-medium text-gray-900">
+                <h3 className="text-lg font-medium text-white">
                   {resource.name}
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">
+                <p className="mt-1 text-sm text-gray-300">
                   {resource.description}
                 </p>
                 <div className="mt-4">

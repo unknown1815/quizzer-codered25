@@ -35,12 +35,9 @@ export default function PdfChat() {
 
     try {
       setUploading(true);
-      
-      // Create URL for preview
       const fileUrl = URL.createObjectURL(file);
       setPdfUrl(fileUrl);
 
-      // Extract text from PDF
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await getDocument({ data: arrayBuffer }).promise;
       let fullText = '';
@@ -88,12 +85,12 @@ export default function PdfChat() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-black py-12 px-4 sm:px-6 lg:px-8 text-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8">
           <MessageSquare className="mx-auto h-12 w-12 text-indigo-600" />
-          <h2 className="mt-2 text-3xl font-bold text-gray-900">Chat with PDF</h2>
-          <p className="mt-2 text-lg text-gray-600">
+          <h2 className="mt-2 text-3xl font-bold text-white">Chat with PDF</h2>
+          <p className="mt-2 text-lg text-gray-400">
             Upload a PDF and ask questions about its content
           </p>
         </div>
@@ -130,7 +127,7 @@ export default function PdfChat() {
 
           {/* Chat Interface */}
           <div className="lg:w-1/2 flex flex-col">
-            <div className="flex-1 bg-white rounded-lg shadow-md p-4 mb-4 min-h-[500px] max-h-[600px] overflow-y-auto">
+            <div className="flex-1 bg-black rounded-lg shadow-md p-4 mb-4 min-h-[500px] max-h-[600px] overflow-y-auto">
               <div className="space-y-4">
                 {messages.map((message, index) => (
                   <div
@@ -142,20 +139,32 @@ export default function PdfChat() {
                     <div
                       className={`max-w-[80%] rounded-lg px-4 py-2 ${
                         message.role === 'user'
-                          ? 'bg-indigo-600 text-white'
-                          : 'bg-gray-100 text-gray-800'
+                          ? 'bg-gray-300 text-black'
+                          : 'bg-gray-800 text-white'
                       }`}
                     >
                       {message.role === 'assistant' ? (
                         <ReactMarkdown
-                          className="prose prose-sm max-w-none"
+                          className="prose prose-sm max-w-none text-white"
                           components={{
-                            strong: ({node, ...props}) => <span className="font-semibold" {...props} />,
-                            blockquote: ({node, ...props}) => (
-                              <blockquote className="border-l-4 border-gray-300 pl-4 italic" {...props} />
+                            strong: ({ node, ...props }) => (
+                              <span className="font-semibold" {...props} />
                             ),
-                            ul: ({node, ...props}) => <ul className="list-disc pl-4 space-y-1" {...props} />,
-                            h3: ({node, ...props}) => <h3 className="text-lg font-semibold mt-2 mb-1" {...props} />
+                            blockquote: ({ node, ...props }) => (
+                              <blockquote
+                                className="border-l-4 border-gray-300 pl-4 italic"
+                                {...props}
+                              />
+                            ),
+                            ul: ({ node, ...props }) => (
+                              <ul className="list-disc pl-4 space-y-1" {...props} />
+                            ),
+                            h3: ({ node, ...props }) => (
+                              <h3
+                                className="text-lg font-semibold mt-2 mb-1"
+                                {...props}
+                              />
+                            ),
                           }}
                         >
                           {message.content}
@@ -168,11 +177,17 @@ export default function PdfChat() {
                 ))}
                 {loading && (
                   <div className="flex justify-start">
-                    <div className="bg-gray-100 rounded-lg px-4 py-2">
+                    <div className="bg-gray-800 rounded-lg px-4 py-2 text-white">
                       <div className="flex space-x-2">
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: '0.2s' }}
+                        />
+                        <div
+                          className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                          style={{ animationDelay: '0.4s' }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -186,9 +201,9 @@ export default function PdfChat() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={pdfText ? "Ask a question..." : "Upload a PDF first"}
+                placeholder={pdfText ? 'Ask a question...' : 'Upload a PDF first'}
                 disabled={!pdfText || loading}
-                className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:bg-gray-100"
+                className="flex-1 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:bg-gray-700 disabled:text-gray-500 text-black"
               />
               <button
                 type="submit"
